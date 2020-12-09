@@ -1,5 +1,9 @@
 Flow Omise POC
 
+# Goal create subscription plan
+
+### V.1 POC basic charge flow
+
 - Token = one time use credit card data
 
   - create // create token one time
@@ -28,8 +32,22 @@ EX 2: Token -> Customer -> Charge // next time can use customer data to buy agai
   - listRefunds
   - retrieveRefund
 
+- Schedules = subscription pay plan
+
+### POC Later
+
 - Source = pay with custom payment method like internet banking or promptpay (Cont.)
 
-- Transfer = move money hold in omise account to your real account
+- Transfer = move money hold in omise account to your real account do it manually
 
 Ex 1: Token -> Charge -> Transfer // get money
+
+- Link = generate link to pay
+
+- Disputes = when reverse charge state change to disputes
+
+- Event = can list all event happen in account
+
+- Transactions = list all transactions
+
+- Recipients = add multiple account to get money
