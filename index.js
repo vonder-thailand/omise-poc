@@ -14,46 +14,42 @@ app.get("/", (req, res) => {
   res.send("Welcome to Omise POC");
 });
 
-app.post("/customer", async (req, res) => {
+const controllerPost = (fn) => async (req, res) => {
   try {
-    const response = await customerRepo.createCustomer(req.body);
+    const response = await fn(req.body);
     res.send(response);
   } catch (error) {
     res.send(error);
   }
-});
+};
 
-app.post("/customer/card", async (req, res) => {
+const controllerGet = (fn) => async (req, res) => {
   try {
-    const response = await customerRepo.addCardToCustomer(req.body);
+    const response = await fn(req.query);
     res.send(response);
   } catch (error) {
     res.send(error);
   }
-});
+};
 
-app.post("/charge", async (req, res) => {
+const controller = (fn) => async (req, res) => {
   try {
-    const response = await chargeRepo.createCharge(req.body);
+    const response = await fn();
     res.send(response);
   } catch (error) {
     res.send(error);
   }
-});
+};
 
-app.get("/customers", async (req, res) => {
-  const response = await customerRepo.listCustomer();
-  res.send(response);
-});
+app.post("/customer", controllerPost(customerRepo.createCustomer));
 
-app.get("/token", async (req, res) => {
-  try {
-    const response = await cardRepo.getToken(req.query.tokenId);
-    res.send(response);
-  } catch (error) {
-    res.send(error);
-  }
-});
+app.post("/customer/card", controllerPost(customerRepo.addCardToCustomer));
+
+app.post("/charge", controllerPost(chargeRepo.createCharge));
+
+app.get("/customers", controller(customerRepo.listCustomer));
+
+app.get("/token", controllerGet(cardRepo.getToken));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

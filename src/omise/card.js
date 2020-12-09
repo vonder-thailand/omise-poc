@@ -18,5 +18,6 @@ module.exports.createToken = async (params) => {
  * @param {*} tokenId
  */
 module.exports.getToken = async (params) => {
-  return await omise.tokens.retrieve(params);
+  const { tokenId } = params;
+  return await omise.tokens.retrieve(tokenId);
 };
